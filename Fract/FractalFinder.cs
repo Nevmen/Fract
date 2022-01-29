@@ -10,7 +10,7 @@ namespace Fract
 {
     public static class FractalFinder
     {
-        public static Bitmap PlotJuliaSet(Complex c, double xMin, double xMax, double yMin, double yMax, int width, int height, int iterations)
+        public static Bitmap FractalCreator(Sets sets,  Complex c, double xMin, double xMax, double yMin, double yMax, int width, int height, int iterations)
         {
 
             double xStep = Math.Abs(xMax - xMin) / width;
@@ -27,7 +27,7 @@ namespace Fract
                     Complex z = new Complex(x,y);
 
                     
-                    matrix[i].Add(SetChooser(Sets.Mandelbrot,z,c,iterations));
+                    matrix[i].Add(SetChooser(sets,z,c,iterations));
                 }
             }
 
@@ -82,6 +82,22 @@ namespace Fract
 
             return n;
         }
+        private static int NewtonSetIterator(Complex z, int iterations)
+        {
+            int n = 0;
+
+            for( int k = 0; k < iterations; k++)
+            {
+                if (Complex.Pow(Complex.Abs(Complex.Pow(z, 4) - 1), 2).Magnitude < 0.001)
+                    break;
+                z = (3 * Complex.Pow(z, 4) + 1) / (4 * Complex.Pow(z, 3));
+                //z -= (Complex.Pow(z, 3) - 1) / (3 * z * z);
+                n++;
+            }
+
+            return n;
+
+        }
         private static int SetChooser(Sets sets, Complex z, Complex c, int iterations)
         {
             switch (sets)
@@ -91,7 +107,7 @@ namespace Fract
                 case Sets.Julia:
                     return JuliaSetIterator(z, c, iterations);
                 case Sets.Newton:
-                    throw new NotImplementedException();
+                    return NewtonSetIterator(z, iterations);
                 default: throw new NotImplementedException();
             } 
         }

@@ -26,6 +26,10 @@ namespace Fract
             } 
         }
 
+        private Sets sets;
+        public Sets Sets { get => sets; set  { sets = value; OnPropertyChanged("Sets"); } }
+
+
         private double c;
 
         public double C
@@ -39,8 +43,8 @@ namespace Fract
         public DataContext() 
         { 
             header = "Fractal";
-            
-            Pict = FractalFinder.PlotJuliaSet(new Complex(-0.74543, 0.11301), -2, 2, -2, 2,500,500,250);
+            Sets = Sets.Newton;
+            Pict = FractalFinder.FractalCreator(Sets, new Complex(-0.74543, 0.11301), -1, 1, -1, 1,500,500,100);
         }
 
 
