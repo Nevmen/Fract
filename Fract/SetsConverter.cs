@@ -15,18 +15,18 @@ namespace Fract
             var  sets = (Sets)value;
             switch(sets)
             {
-                case(Sets.Mandelbrot): return "Множество Мадельброт";
-                case(Sets.Julia): return "Множество Джулиа";
-                case(Sets.Newton): return "Множество Ньютона";
-                default: return "Выберите множество";
+                case(Sets.Mandelbrot): return "Мандельброт";
+                case(Sets.Julia): return "Джулиа";
+                case(Sets.Newton): return "Ньютон";
+                default: return "Ньютон";
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var str = (string)value;
-            if(str == "Множество Мадельброт") return Sets.Mandelbrot;
-            if(str == "Множество Джулиа") return Sets.Julia;
+            if(str == "Мандельброт") return Sets.Mandelbrot;
+            if(str == "Джулиа") return Sets.Julia;
             return Sets.Newton;
         }
     }
